@@ -1,3 +1,7 @@
+# Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] 
+# such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+# Notice that the solution set must not contain duplicate triplets.
+
 def threeSum(self, nums: List[int]) -> List[List[int]]:
     nums.sort()
     # size= len(nums)
@@ -15,7 +19,7 @@ def threeSum(self, nums: List[int]) -> List[List[int]]:
             else:
                 res.append([a, nums[l], nums[r]])
                 l += 1
-#                     To avoid same element for solution at left or right place
+#               To avoid same element for solution at left or right place
                 while nums[l] == nums[l-1] and l < r:
                     l +=1
     return res
