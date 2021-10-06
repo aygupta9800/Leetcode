@@ -8,10 +8,14 @@
 
 # Input: s = "cbbd"
 # Output: "bb"
+#logic: 
+# 1. Naive approach: take substring and check if its palindrome by comaparing from ends of substring and reduce size
+# 2. optimised approach: if sth is palindrome then from center of it will also we can compare
 
 def longestPalindrome(self, s: str) -> str:
         res = ""
         resLen = 0
+        # for every element we iterate and find longest palindrom at which it is at center
         for i in range(len(s)):
             #odd length
             l, r = i ,i

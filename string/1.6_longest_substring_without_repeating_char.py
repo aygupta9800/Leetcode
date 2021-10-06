@@ -8,6 +8,7 @@ def lengthOfLongestSubstring(self, s: str) -> int:
     for i in range(len(s)):
 #       if last visited same char is after the current start
 #       as the length will be less than prev max length we increase start to next to last visited
+# ***** VERY IMP: start <= dic[s[i]]
         if s[i] in dic and start <= dic[s[i]]:
             start = dic[s[i]] + 1
         else:
