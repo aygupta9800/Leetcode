@@ -9,6 +9,8 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
+#Time complexity O(n2)
 class Solution:
      def helper(self, root, sum, lst, count):
         lst.append(root.val)
