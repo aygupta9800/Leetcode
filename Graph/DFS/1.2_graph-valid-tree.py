@@ -46,6 +46,7 @@ def validTree(self, n: int, edges: List[List[int]]) -> bool:
         adj_list[A].append(B)
         adj_list[B].append(A)
     
+    # Visited map
     parent = {0: -1}
     stack = [0]
     

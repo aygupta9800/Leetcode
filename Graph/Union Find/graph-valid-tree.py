@@ -73,6 +73,9 @@ class Solution:
 
 #Union Find
 class UnionFind:
+
+    # We dont need to maintain multiple sets for linked nodes, we can just maintain parent root node for each index to know
+    # they are in same connected component
     def __init__(self, n):
         self.parent = [node for node in range(n)]
     

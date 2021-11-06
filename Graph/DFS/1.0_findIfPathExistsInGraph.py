@@ -1,3 +1,7 @@
+# You want to determine if there is a valid path that exists from vertex start to vertex end.
+
+# Given edges and the integers n, start, and end, return true if there is a valid path from start to end, or false otherwise.
+
 
 # DFS Soln
 from collections import defaultdict, deque

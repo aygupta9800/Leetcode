@@ -29,7 +29,7 @@ class Solution:
             mx = None
             for t in hash_table:
                 if t > num:
-                    break;
+                    break
                 mx = t
             if mx:
                 num = num - mx
