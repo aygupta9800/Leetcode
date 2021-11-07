@@ -45,8 +45,9 @@ class Solution:
                         if nei not in visit:
                             visit.add(nei)
                             q.append(nei)
+            #Adding len of path after each level
             res += 1
-            
+        # If endword is not found 
         return 0
 
 

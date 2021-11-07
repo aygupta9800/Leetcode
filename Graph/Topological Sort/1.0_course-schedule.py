@@ -54,7 +54,7 @@ class Solution:
         
         #no need for prev as directed graph
         def dfs(crs):
-            #loop detect
+            #loop detect as its in visitset for a current dfs path
             if crs in visitSet:
                 return False
             if preMap[crs] ==[]:
@@ -66,6 +66,7 @@ class Solution:
                     return False
             # directed graph so crs can be neigbhour of others but not necessary vice-versa so to avoid false cycle positive         
             visitSet.remove(crs)
+            # so that next dfs on same crs save same steps
             preMap[crs] = []
             return True
         
