@@ -3,6 +3,12 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+
+# Time complexity : O(n + m)O(n+m)
+
+# Because exactly one of l1 and l2 is incremented on each loop iteration, the while loop runs
+# for a number of iterations equal to the sum of the lengths of the two lists. All other work is constant, so the overall complexity is linear.
+
 class Solution:
     def mergeTwoLists(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         """
@@ -48,3 +54,17 @@ class Solution:
         if l2:
             current.next = l2
         return start
+
+# Approach 2: with recursion
+class Solution:
+    def mergeTwoLists(self, l1, l2):
+        if l1 is None:
+            return l2
+        elif l2 is None:
+            return l1
+        elif l1.val < l2.val:
+            l1.next = self.mergeTwoLists(l1.next, l2)
+            return l1
+        else:
+            l2.next = self.mergeTwoLists(l1, l2.next)
+            return l2

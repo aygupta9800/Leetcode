@@ -39,4 +39,34 @@ class Solution:
                 count -= 1
         
         return count
+
+        #Approach 2: with DFS
+    class Solution:
+        def countComponents(self, n: int, edges: List[List[int]]) -> int:
+            if not n:
+                return 0
+            
+            adj = collections.defaultdict(list)
+            for i ,j in edges:
+                adj[i].append(j)
+                adj[j].append(i)
+                
+            visit = set()
+            
+            def dfs(node):
+                if node in visit:
+                    return False
+                visit.add(node)
+                for nei in adj[node]:
+                    if nei not in visit:
+                        dfs(nei)
+                # visit.remove(node)
+                return True
+            count = 0
+            for i in range(n):
+                if dfs(i):
+                    count += 1
+            return count
+                
+        
                 
