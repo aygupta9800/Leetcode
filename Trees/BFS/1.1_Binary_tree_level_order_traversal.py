@@ -6,7 +6,7 @@
 #         self.right = right
 # node at any level: 
 
-# Approach2 using iteration:
+# Approach2 using iteration: Time and space O(n)
 # Use queue as data structure i.e deque
 # In Python the queue implementation with a fast atomic append() and popleft() is deque.
 from collections import deque
@@ -41,8 +41,9 @@ def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
 # Approach 1 using recursion: 
 # Let's first ensure that the tree is not empty, and then call recursively the function helper(node, level),
 #  which takes the current node and its level as the arguments.
-# Time complexity : \O(N) since each node is processed exactly once.
-# Space complexity : \O(N) to keep the output structure which contains N node values.
+
+# NOTE: Time complexity : O(N) since each node is processed exactly once.
+# Space complexity : O(N) to keep the output structure which contains N node values.
 #Recursive DFS approach
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:

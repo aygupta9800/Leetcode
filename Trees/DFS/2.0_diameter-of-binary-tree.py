@@ -15,7 +15,6 @@ class Solution:
             right_path = dfs(root.right) 
             # No need to add 1 as we are calculating no. of total noded in left/right path so merging r and l path will have diameter equal to child nodes in both
             res[0] = max(res[0], left_path + right_path)
-            print("root.val", root.val,"--", left_path,"==", right_path)
             return max(left_path, right_path)+1
         
         if root is None:

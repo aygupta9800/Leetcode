@@ -27,7 +27,7 @@
 #     if target < nums[mid]:
 #         right = mid -1
 #     else:
-#         if target >= nums[left]:
+#         if target > nums[right]:
 #             right = mid -1
 #         else:
 #             left = mid + 1

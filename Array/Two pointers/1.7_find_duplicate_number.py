@@ -18,6 +18,8 @@ class Solution:
             count = 0
             
             # Count how many numbers are less than or equal to 'cur'
+            # since for and after duplicate element in [1, n], no. of element <= curr_elem will be > elem  in nums we 
+            # can reduce our search space acc with binary search
             count = sum(num<=cur for num in nums)
             if count > cur:
                 #save elem and then move in left range to see if there is smaller elem
@@ -39,3 +41,19 @@ class Solution:
             if n in numset:
                 return n
             numset.add(n)
+
+# ANother negative marking approach
+# class Solution:
+#     def findDuplicate(self, nums: List[int]) -> int:
+#         for num in nums:
+#             cur = abs(num)
+#             if nums[cur] < 0:
+#                 duplicate = cur
+#                 break
+#             nums[cur] = -nums[cur]
+
+#         # Restore numbers
+#         for i in range(len(nums)):
+#             nums[i] = abs(nums[i])
+
+#         return duplicate

@@ -7,6 +7,8 @@
 #in this way time complexity would be O(n) space o(n)
 
 # Approach 2
+# Time complexity: O(n). Single iteration of O(n).
+# Space complexity: O(1) extra space. Only constant space required for \text{left}left, \text{right}right, \text{left\_max}left_max and \text{right\_max}right_max.
 # using 2 pointers, u dont need to know both Lmax, Rmax at given pos , u just need min of both.
 class Solution:
     def trap(self, height: List[int]) -> int:

@@ -7,7 +7,7 @@
 # Return the modified image after performing the flood fill.
 
 
-
+# Need visit set as old color can be same as new color
 from collections import deque
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:

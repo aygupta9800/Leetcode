@@ -9,6 +9,8 @@
 #         self.left = left
 #         self.right = right
 # Time complexity O(n2), debatable: Space complexity O(n2)
+#  then there would be N/2N/2 leafs. For every leaf, we perform a potential O(N)O(N) operation of copying over the pathNodes
+#  nodes to a new list to be added to the final pathsList. Hence, the complexity in the worst case could be O(N^2)O(N2).
 class Solution:
     def helper(self, root, sum, lst, result):
         if root.left is None and root.right is None:
