@@ -22,3 +22,47 @@ class Solution:
                     dfs(grid, r,c)
                     islands += 1
         return islands
+
+#Union Find Approach
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if len(grid) == 0: return 0
+        ROWS = len(grid); COLS = len(grid[0])
+        self.count = sum(grid[i][j]=='1' for i in range(ROWS) for j in range(COLS))
+        par = [i for i in range(ROWS*COLS)]
+        rank = [1]* (ROWS*COLS)
+        
+        def find(n1):
+            root = n1
+            while root != par[root]:
+                root = par[root]
+                
+            while par[n1] != root:
+                old_root = par[n1]
+                par[n1] = root
+                n1= old_root
+            return root
+        
+        def union(n1, n2):
+            root_n1 = find(n1)
+            root_n2 = find(n2)
+            if root_n1 == root_n2:
+                return False
+            if rank[root_n1] > rank[root_n2]:
+                par[root_n2] = root_n1
+                rank[root_n1] += rank[root_n2]
+            else:
+                par[root_n1] = root_n2
+                rank[root_n2] += rank[root_n1]
+            return True
+        
+        for i in range(ROWS):
+            for j in range(COLS):
+                if grid[i][j] == '0':
+                    continue
+                index = i*COLS + j
+                if j < COLS-1 and grid[i][j+1] == '1' and union(index, index+1):
+                    self.count -= 1
+                if i < ROWS-1 and grid[i+1][j] == '1' and union(index, index+COLS):
+                    self.count -= 1
+        return self.count
