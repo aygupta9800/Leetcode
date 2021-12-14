@@ -74,3 +74,6 @@ class Solution:
                 curr = curr.next
                 
         return root 
+
+    # Approach 2
+    level order traversal o(n) time o(n) space

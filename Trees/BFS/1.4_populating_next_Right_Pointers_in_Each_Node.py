@@ -63,6 +63,7 @@ class Solution:
             qlen = len(q)
             for i in range(qlen):
                 node = q.popleft()
+                # node is not the last index at current level
                 if i < qlen -1:
                     node.next = q[0]
                 if node.left:

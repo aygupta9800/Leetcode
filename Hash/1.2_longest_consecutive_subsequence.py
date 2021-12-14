@@ -11,7 +11,9 @@
 # Output: 9
 
 # This optimized algorithm contains only two changes from the brute force approach: the numbers are stored in a HashSet (or Set, in Python)
-# to allow O(1)O(1) lookups, and we only attempt to build sequences from numbers that are not already part of a longer sequence. This is accomplished by first ensuring that the number that would immediately precede the current number in a sequence is not present, as that number would necessarily be part of a longer sequence.
+# to allow O(1)O(1) lookups, and we only attempt to build sequences from numbers that are
+#  not already part of a longer sequence. This is accomplished by first ensuring that the number 
+# that would immediately precede the current number in a sequence is not present, as that number would necessarily be part of a longer sequence.
 
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
