@@ -43,6 +43,32 @@ class Solution:
                     count -= 1
         return count
                     
+#DFS soln
+# O(n2) TIme complexity- matrix size = n*n
+# space O(n) . visited array of size n is used.
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        n = len(isConnected)
+        def dfs(M, visit, i):
+            if i in visit:
+                return False
+            visit.add(i)
+            for j in range(n):
+                if M[i][j] == 1 and j not in visit:
+                    dfs(M, visit, j)
+            return True
+                
+        
+        visit = set()
+        count = 0
+        for i in range(n):
+            if i in visit:
+                continue
+            # print("===")
+            dfs(isConnected, visit, i)
+            count += 1
+        return count
+                
         
         
         

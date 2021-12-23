@@ -25,6 +25,8 @@
 #if negative child value we ignore child subtree for path sum.
 
 #We cant pass global variable in python directly like js
+#Time complexity O(n)
+# space O(logn) avg recursion height
 class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         res = [root.val]

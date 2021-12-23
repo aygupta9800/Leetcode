@@ -2,6 +2,7 @@
 # such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
 # Notice that the solution set must not contain duplicate triplets.
 
+# TIme complexity O(nlogn))+O(n2) = O(n2) 
 def threeSum(self, nums: List[int]) -> List[List[int]]:
     nums.sort()
     # size= len(nums)

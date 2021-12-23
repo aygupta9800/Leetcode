@@ -15,17 +15,21 @@
 # Output: 0
 # Explanation: The endWord "cog" is not in wordList, therefore there is no valid transformation sequence
 
-                # BFS     #adj list
-# Time complexity O(n*2 m)+ O(n*m2) m is len of word, n len of wordlist, space complexity O(m * n2)
+# BFS     #adj list
+# Time complexity O(n*m2) m is len of word, n len of wordlist, space complexity O(m * n2)
+# Space complexity
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         if endWord not in wordList:
             return 0
         wordList.append(beginWord)
         neiList = collections.defaultdict(list)
-        # Making adjacency list using pattern hot *ot, h*t, ho* , dot has *ot, d*t, do* so 1 common patttern 
+        # Making adjacency list using pattern hot *ot, h*t, ho* , dot has *ot, d*t, do* so 1 common patttern
+        # O(n) cost 
         for w in wordList:
+            #O(m) cost
             for j in range(len(w)):
+                #O(m) cost
                 pattern = w[:j]+"*"+w[j+1:]
                 neiList[pattern].append(w)
 
@@ -33,12 +37,15 @@ class Solution:
         visit = set([beginWord])
         q= deque([beginWord])
         res = 1
+
         while q:
             qLen = len(q)
+            #o(n) cost
             for i in range(qLen):
                 word = q.popleft()
                 if word == endWord:
                     return res
+                #O(m*m) cost
                 for j in range(len(word)):
                     pattern = word[:j]+ "*"+ word[j+1:]
                     for nei in neiList[pattern]:

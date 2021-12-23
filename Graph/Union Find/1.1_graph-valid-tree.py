@@ -2,6 +2,19 @@
 # where edges[i] = [ai, bi] indicates that there is an undirected edge between nodes ai and bi in the graph.
 # Return true if the edges of the given graph make up a valid tree, and false otherwise.
 
+#Time complexity O(N⋅α(N)) alpah(n) is inverse Ackerman soln
+# Time Complexity : O(N⋅α(N)).
+# When E ≠ N - 1, E=N−1, we simply return false. Therefore, the worst case is when E=N−1. Because E is proportional to N, we'll say E = NE=N to simplify the analysis.
+# We are putting each of the NN edges into the UnionFind data structure, using the union(...) method. The union(...) method itself has no loops or recursion, so the entire cost of calling it is dependent on the cost of the find(...) method that it calls.
+# find(...)'s cost is dependent on how far the node it was searching for is from the root. Using the naïve implementation of union find, this depth could be NN. If this was the case for all of the calls, 
+# we'd have a final cost of O(N^2)O(N 2).
+
+# However, remember those optimizations we did? Those keep the tree depths very shallow. It turns out that find(...) amortizes to O(α(N))O(α(N)), where α is the Inverse Ackermann Function. The incredible thing about this function is that it grows so slowly that NN will never go higher than 44 in the universe as we know it! So while in "practice" it is effectively O(1)O(1), in "theory" it is not.
+# Actually proving this upper bound on the depth is a very advanced proof, which I'd certainly hope you'd never need to do in an interview! If you're interested though, I recommend looking in a good algorithm's text book or paper.
+
+# Anyway, this gives us a total of N \cdot O(α(N)) = O(N \cdot α(N))N⋅O(α(N))=O(N⋅α(N)).
+# Space Complexity : O(N).
+# The UnionFind data structure requires O(N)O space to the store the arrays it uses.
 
 # Union find with optimization path compression and union by size
 class UnionFind:
