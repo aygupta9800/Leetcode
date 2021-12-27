@@ -7,10 +7,15 @@
 # TIme O(n), space O(n)
 # no sliding window as negative values allowed
 # The logic is simple: the current prefix sum is curr_sum, and some elements before the prefix sum was curr_sum - target. All the elements in between sum up to curr_sum - (curr_sum - target) = target.
+# The idea behind this approach is as follows: If the cumulative sum up to two indices is the same, the sum of the elements lying in between those indices is zero. Extending the same thought further, if the cumulative sum up to two indices, say ii and jj is at a difference of kk i.e. if sum[i] - sum[j] = k, the sum of elements lying between indices ii and jj is kk.
+
+# Based on these thoughts, we make use of a hashmap mapmap which is used to store the cumulative sum up to all the indices possible along with the number of times the same sum occurs. We store the data in the form: (sum_i, no. of occurrences of sum_i). We traverse over the array numsnums and keep on finding the cumulative sum. Every time we encounter a new sum, we make a new entry in the hashmap corresponding to that sum. If the same sum occurs again, we increment the count corresponding to that sum in the hashmap. Further, for every sum encountered, we also determine the number of times the sum sum-ksum−k has occurred already, since it will determine the number of times a subarray with sum kk has occurred up to the current index. We increment the countcount by the same amount.
+
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
         res = 0
         curSum = 0
+        # {sum: no. of occurences of sum}
         prefixSums = {0: 1}
         for n in nums:
             curSum += n

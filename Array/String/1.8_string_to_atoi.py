@@ -20,7 +20,48 @@
 # The parsed integer is 4193.
 # Since 4193 is in the range [-231, 231 - 1], the final result is 4193.
 
-# Solution2
+#Time O(N)
+# space O(1)
+#soln2
+class Solution:
+    def myAtoi(self, s: str) -> int:
+        sign = 1
+        result = 0
+        index = 0
+        n = len(s)
+        
+        INT_MAX = pow(2,31) -1
+        INT_MIN = -pow(2, 31)
+        
+        #Discard all the spaces from beigninning
+        while index < n and s[index] == ' ':
+            index += 1
+        
+        #sign = +1,or -1
+        if index < n and s[index] == "+":
+            sign = 1
+            index += 1
+        elif index <n and s[index] == "-":
+            sign = -1
+            index += 1
+        
+        # Traverse next digits till next is not digit or end of string
+        while index < n and s[index].isdigit():
+            digit = int(s[index])
+            
+            #Check overflow and underflow conditions
+            if (result > INT_MAX //10 ) or (result == INT_MAX // 10 and digit > INT_MAX % 10):
+                return INT_MAX if sign == 1 else INT_MIN
+            
+            # Append digit
+            result = 10 * result + digit
+            index += 1
+        
+        return sign * result
+            
+
+
+# Solution1
 class Solution:
     def myAtoi(self, s: str) -> int:   
         st = 0
