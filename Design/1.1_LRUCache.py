@@ -12,6 +12,10 @@
 # Output
 # [null, null, null, 1, null, -1, null, -1, 3, 4]
 
+# Time complexity : \mathcal{O}(1)O(1) both for put and get.
+
+# Space complexity : \mathcal{O}(capacity)O(capacity) since the space is used only for a hashmap and double linked list with at most capacity + 1 elements.
+
 class DLinkedNode():
     def __init__(self):
         self.key = 0
