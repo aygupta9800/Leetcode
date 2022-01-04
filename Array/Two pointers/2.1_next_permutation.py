@@ -10,6 +10,15 @@
 # Input: nums = [3,2,1]
 # Output: [1,2,3]
 
+#  Algo:
+#  1. start from right and find first elem which is less than its next elem and mark it i
+#  2. Now we have to replace this with elem in right which is just bigger than this start from right till you find such elem and mark it j
+#  3. now jth elem should be at ith. and for number to be just bigger than last,we need to put ith in right part and sort them in increasing way
+#  since if swap ith and jth pos, right part will already be sorted in decreasgin
+#  we just need to reverse the right part after swapping
+#  4. if i < 0 : then we need to reverse whole array
+   
+
 # Time complexity O(n), In worst case, only two scans of the whole array are needed.
 #space O(1)
 class Solution:
