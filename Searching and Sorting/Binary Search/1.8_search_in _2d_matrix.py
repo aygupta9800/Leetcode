@@ -8,7 +8,9 @@ class Solution:
         left, right = 0, m*n -1
         while left <= right:
             mid = (left+right) //2
+            # IMP POINT
             r, c = mid // n, mid % n
+            
             if matrix[r][c] == target:
                 return True
             if target < matrix[r][c]:

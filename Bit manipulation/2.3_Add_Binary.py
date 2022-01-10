@@ -16,9 +16,13 @@
 
 class Solution:
     def addBinary(self, a, b) -> str:
+        # Convert a and b into integers x and y, x will be used to keep an answer, and y for the carry.
         x, y = int(a, 2), int(b, 2)
         while y:
+            #Here XOR is a key as well, because it's a sum of two binaries without taking carry into account.
             answer = x ^ y
+            # To find current carry is quite easy as well, it's AND of two input numbers,
+            # shifted one bit to the left.
             carry = (x & y) << 1
             x, y = answer, carry
         return bin(x)[2:]
@@ -27,6 +31,9 @@ class Solution:
 # TIme complexity O(n+m)
 # space o(n+m)
 # using simple logic
+"""
+1+ 1 = 0, carry = 0
+"""
 class Solution:
     def addBinary(self, a: str, b: str) -> str:
         res = ""
@@ -44,6 +51,7 @@ class Solution:
         if carry:
             res = "1"+ res
         return res
+        
         
 
 # Using Builtin Fn
