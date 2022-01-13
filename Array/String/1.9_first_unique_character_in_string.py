@@ -14,6 +14,7 @@ class Solution:
                 dic[s[i]] = i
         for key in dic:
             if dic[key] != -1:
+                # Assuming keys will be in order of insertion
                 return dic[key]
         return -1
 

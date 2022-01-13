@@ -20,12 +20,11 @@
 
 # Note, we did not take into account the space needed to hold the results. Otherwise, the space complexity would become O(N⋅N!).
 
-
-
-
-
-
 class Solution:
+    """
+    logic here is to avoid multiple same level branch from duplicate elem
+    we can use counter map, so we can choose duplicate value in next level only if left
+    """
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
         results = []
         def backtrack(comb, counter):
