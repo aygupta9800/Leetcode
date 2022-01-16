@@ -1,5 +1,21 @@
 #Approach 3: Using Dynamic Programming
-# O(n) time O(n) space
+# O(n) time O(n) space (can be further optimise by just tracking last 2 values)
+# code 2:
+class Solution:
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+        dp = [0 for i in range(n)]
+        # Base case
+        dp[n -1] = nums[n-1]
+        if n == 1: return dp[n-1] 
+        dp[n-2] = max(nums[n-2], nums[n-1])
+        for i in range(n-3, -1, -1):
+            dp[i] = max(dp[i+1], dp[i+2] + nums[i])
+        
+        return dp[0]
+      
+
+# code 1
 class Solution:
     def __init__(self):
         self.memo = {}

@@ -8,7 +8,7 @@ class Solution:
         dp[0] = 0
         """
         grid(11):
-         min (grid(6) +1, grid(9) +1, grid(8)+1)
+         min (gridpm(6) +1, grid(9) +1, grid(8)+1)
         """
         # for coin in coins:
         #     for amt in range(coin, amount+1):
@@ -47,5 +47,17 @@ class Solution:
             dp[rem -1] = -1 if (min_val == sys.maxsize) else min_val
             return dp[rem -1]
         return coinCount(coins, amount, self.dp)
+
+
+# another way to code bottom up
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        dp = [float('inf')] * (amount + 1)
+        dp[0] = 0
+        
+        for coin in coins:
+            for x in range(coin, amount + 1):
+                dp[x] = min(dp[x], dp[x - coin] + 1)
+        return dp[amount] if dp[amount] != float('inf') else -1 
       
         

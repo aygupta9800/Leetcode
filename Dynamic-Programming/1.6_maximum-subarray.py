@@ -11,15 +11,37 @@ is not worth keeping, so we'll reset it back to an empty array.
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         # Initialize our variables using the first element.
-        current_subarray = max_subarray = nums[0]
+        current_sum = best_sum = nums[0]
         
         # Start with the 2nd element since we already used the first one.
         for num in nums[1:]:
             # If current_subarray is negative, throw it away. Otherwise, keep adding to it.
-            current_subarray = max(num, current_subarray + num)
-            max_subarray = max(max_subarray, current_subarray)
+            current_sum = max(num, current_sum + num)
+            best_sum = max(best_sum, current_sum)
         
-        return max_subarray
+        return best_sum
+
+# If we have to find subarray as well(kadane algo)
+def max_subarray(numbers):
+    """Find a contiguous subarray with the largest sum."""
+    best_sum = 0  # or: float('-inf')
+    best_start = best_end = 0  # or: None
+    current_sum = 0
+    for current_end, x in enumerate(numbers):
+        if current_sum <= 0:
+            # Start a new sequence at the current element
+            current_start = current_end
+            current_sum = x
+        else:
+            # Extend the existing sequence with the current element
+            current_sum += x
+
+        if current_sum > best_sum:
+            best_sum = current_sum
+            best_start = current_start
+            best_end = current_end + 1  # the +1 is to make 'best_end' exclusive
+
+    return best_sum, best_start, best_end
 
 #Appraoch 1 # Using prefix sum
 # O(n)

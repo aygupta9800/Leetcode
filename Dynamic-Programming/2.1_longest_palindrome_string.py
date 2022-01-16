@@ -34,3 +34,36 @@ def longestPalindrome(self, s: str) -> str:
                 l -= 1
                 r += 1
         return res
+
+# Approach 2 Dynamic Programming dp[i][j] = dp[i+1][j-1]
+#O(n2), spaceO(n)
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        n = len(s)
+        dp = [[False] * n for _ in range(n)]
+        res = s[0] #every single char is palindrome
+        maxLen = 1
+        
+        # for len 1
+        for i in range(n):
+            dp[i][i] = True
+        # for len 2
+        for i in range(n-1):
+            dp[i][i+1] = s[i] == s[i+1]
+            if dp[i][i+1] == True:
+                res = s[i:i+2]
+                maxLen = 2
+        # checking with length 3 onwards and start point from end
+        # as dp[i][j] depends on dp[i+1][j-1]
+        for start in range(n-3, -1, -1):
+            for end in range(start +2, n):
+                if s[start] == s[end]: 
+                    dp[start][end] = dp[start+1][end-1]
+                    if dp[start][end] and end - start +1 > maxLen:
+                        res = s[start: end+1]
+                        maxLen = end-start+1
+        return res
+                
+                  
+            
+        
