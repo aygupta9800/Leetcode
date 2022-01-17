@@ -1,24 +1,6 @@
-# 207. Course Schedule
-
-# There are a total of numCourses courses you have to take, labeled from 0 to numCourses - 1. You are given an array prerequisites
-#  where prerequisites[i] = [ai, bi] indicates that you must take course bi first if you want to take course ai.
-# For example, the pair [0, 1], indicates that to take course 0 you have to first take course 1.
-# Return true if you can finish all courses. Otherwise, return false.
-
-
-
-# Approach 2: Topological sort using kahns algorithm:
-
-# pseudo code for kahn algo
-# 1.  start with courses without pre req
-#     . Find courses without any incoming edge
-# 2. After taking each course, check if we can take other courses:
-#     . Remove outgoing edges after taking each course
-#     . If a course has no more in-going edge, we can take it
-
-from collections import defaultdict
+#Approach2 Using Kanhns algo
 class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         inGoing = defaultdict(set)
         outGoing = defaultdict(set)
         for i,j  in prerequisites:
@@ -34,12 +16,15 @@ class Solution:
                 inGoing[nextCourse].remove(take)
                 if len(inGoing[nextCourse]) == 0:
                     canTake.append(nextCourse)
-        print(taken)
-        return len(taken) == numCourses
+        # print(taken)
+        return taken if len(taken) == numCourses else []
 
-
-# -------------------------------------------------------
-# DFS Approach 1 to solve the problem
+#Approach1 Using post order DFS
+    """
+    The rationale is that given a node, if the subgraph formed by all
+    descendant nodes from this node has no cycle, then adding this node
+    to the subgraph would not form a cycle either.
+    """
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         #building adj list from pre -> next
@@ -61,6 +46,7 @@ class Solution:
             # cycle detected
             if node in path:
                 return False
+            # if the path for this node is already checked no need to check it again
             if node in visited:
                 return True
             path.add(node)
@@ -77,4 +63,5 @@ class Solution:
             if not dfs(node):
                 return []
         return output[::-1]
-  
+            
+         
