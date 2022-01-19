@@ -30,14 +30,16 @@ class Solution:
         oldColor = image[sr][sc]
         q = deque([(sr, sc)])
         visitset= set((sr,sc))
+        image[sr][sc] = newColor
+
         while q:
             r,c = q.popleft()
-            image[r][c] = newColor
 
             lst = [(r-1, c), (r+1, c), (r, c-1), (r, c+1)]
             for row, col in lst:
                 if (row, col) not in visitset and row>=0 and col>=0 and row< len(image) and col< len(image[0]) and image[row][col] == oldColor:
                     visitset.add((row, col))
+                    image[row][col] = newColor
                     q.append((row, col))
         return image
                 

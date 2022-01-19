@@ -1,54 +1,6 @@
 # Given an integer array nums and an integer k, return the kth largest element in the array.
 
 # Note that it is the kth largest element in the sorted order, not the kth distinct element.
-#Approach 3: without left,right, equal array, Quickselect
-class Solution:
-    """
-    Since order of k element can be anything we can use
-    quickselect algo
-    """
-    
-    def dist(self, pt):
-        return pt[0] ** 2 + pt[1] ** 2
-    
-    def find(self, lst, left, right, k):
-        if len(lst) == k:
-            return [i[0] for i in lst]
-        pivot_index = random.randint(left, right)
-        pivot = lst[pivot_index][1]
-        #Swap pivot with right node:
-        lst[right], lst[pivot_index] = lst[pivot_index], lst[right]
-        
-        p = left
-        i = left
-        
-        while i < right:
-            curr = lst[i]
-            dist = curr[1]
-            if dist < pivot:
-                #Swap the ith point with p
-                lst[p], lst[i] = lst[i],lst[p]
-                p += 1
-            i += 1
-    
-        # Swap p with pivot right elem
-        lst[p], lst[right] = lst[right], lst[p]
-        len_left = p -left
-        if len_left == k:
-            return [i[0] for i in lst[left:p]]
-        elif len_left >k:
-            return self.find(lst, left, p-1, k)
-        else:
-            return [i[0] for i in lst[left:p]] + self.find(lst,p,right, k-len_left)
-            
-         
-        
-    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        lst = [(i, self.dist(i)) for i in points]
-        return self.find(lst,0, len(points) -1, k)
-    
-
-
 #Approach 3: Using quick select algo
 # Time complexity : O(N) in the average case, {O}(N^2) in the worst case.
 # N+ N/2 +N/4 ... = 2(N)= O(N) avg case. worst case n+n-1+n-2..= O(n^2)

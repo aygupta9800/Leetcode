@@ -18,6 +18,15 @@ class Solution:
                 par[n1] = root
                 n1= old_root
             return root
+
+        # find function recursively
+        # def find(n1):
+        #     if n1 == par[n1]:
+        #         return n1
+        #     par[n1] = find(par[n1])
+        #     return par[n1]
+            
+            
         
         def union(n1, n2):
             root_n1 = find(n1)

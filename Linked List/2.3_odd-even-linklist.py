@@ -8,11 +8,14 @@ class Solution:
     def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if head == None or head.next is None: return head
         odd, even = head, head.next
+        #crucial
         evenHead = even
+        # even pointer either none and not have next then terminate
         while even != None and even.next != None:
             odd.next = even.next
             odd = odd.next
             even.next = odd.next
             even = even.next
+        #Attaching odd end to even start
         odd.next = evenHead
         return head

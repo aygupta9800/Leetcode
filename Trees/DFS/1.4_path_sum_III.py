@@ -12,7 +12,6 @@
 
 #Approach 2
 #Using Prefix Sum O(n)
-from collections import defaultdict
 class Solution:
     def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
         def preorder (node: TreeNode, curSum) -> None:
@@ -23,14 +22,15 @@ class Solution:
             #current prefix sum
             curSum += node.val
             
-            #if from start to current total sm is k:
-            if curSum == k:
-                count += 1
+            # # including below case by adding default 0
+            # #if from start to current total sm is k:
+            # if curSum == k:
+            #     count += 1
                 
             # number of times the curr_sum − k has occurred already, 
             # determines the number of times a path with sum k 
             # has occurred up to the current node
-            count += prefixSums[curSum - k]
+            count += prefixSums[curSum - targetSum]
             
             # to add curr_sum to map
             prefixSums[curSum] += 1
@@ -40,15 +40,17 @@ class Solution:
             preorder(node.right, curSum)
             
             # remove the current sum from the hashmap
-            # in order not to use it during 
+            # in order not to use it during
             # the parallel subtree processing\
             prefixSums[curSum] -= 1
             
-        count, k = 0, targetSum
+        count = 0
         prefixSums = defaultdict(int)
+        prefixSums[0] = 1
         preorder(root, 0)
         return count
             
+          
 
 
 # Using Recursion:

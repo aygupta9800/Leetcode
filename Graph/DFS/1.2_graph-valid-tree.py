@@ -37,6 +37,7 @@ class Solution:
         visit = set()
         
         def dfs(node, prev):
+            # cycle found
             if node in visit:
                 return False
             

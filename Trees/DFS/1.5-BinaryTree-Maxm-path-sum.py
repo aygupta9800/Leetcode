@@ -34,6 +34,8 @@ class Solution:
         def dfs(root):
             if not root:
                 return 0
+            # We only need to consider child path if it results in
+            # positive sum
             leftMax = dfs(root.left)
             rightMax = dfs(root.right)
             leftMax = max(leftMax, 0)
@@ -42,7 +44,7 @@ class Solution:
             #with split
             res[0] = max(res[0], root.val+ leftMax+ rightMax)
             
-            #without split
+            #without split, maxm of both child branch with current node
             return root.val+ max(leftMax, rightMax)
         
         dfs(root)

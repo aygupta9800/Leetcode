@@ -15,7 +15,7 @@ class Solution:
         l, r = 0, len(A) -1
         while True:# No need for l <= r as it will not reach end point we know
             i = (l + r) // 2
-            j = half - i -2
+            j = half - (i+1) -1
             Aleft =  A[i] if i >= 0 else float("-inf")
             Aright =  A[i+1] if i < n1 -1 else float("inf")
             Bleft =  B[j] if j >= 0 else float("-inf")

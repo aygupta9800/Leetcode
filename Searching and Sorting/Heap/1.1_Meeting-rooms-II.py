@@ -19,6 +19,7 @@ class Solution:
 #         heap initialization
         free_rooms = []
         heapq.heappush(free_rooms, intervals[0][1])
+        #by default we have min heap in python
         
         for i in intervals[1:]:
             if free_rooms[0] <= i[0]:

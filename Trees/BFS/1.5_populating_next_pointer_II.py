@@ -10,6 +10,28 @@
 
 # Initially, all next pointers are set to NULL. solution should use constant memory space. NOT Perfect binary tree***
 
+# Approach3 Using BFS with constant space using dummy node
+def connect(self, root: 'Node') -> 'Node':
+    if not root:
+        return root
+    leftmost = root
+    while leftmost:
+        dummy = Node()
+        temp = dummy
+        head = leftmost
+        while head:
+            if head.left:
+                temp.next = head.left
+                temp = temp.next
+            if head.right:
+                temp.next = head.right
+                temp = temp.next
+            head = head.next
+        leftmost = dummy.next
+    return root
+
+
+
 #Intuition:
 # We have to process all the nodes of the tree. So we can't reduce the time complexity any further. However, we can try and reduce the space complexity.
 # The reason we need a queue here is because we don't have any idea about the structure of the tree and the kind of branches it has and we need to access all the nodes on a common level, together, and establish connections between them.
@@ -74,6 +96,3 @@ class Solution:
                 curr = curr.next
                 
         return root 
-
-    # Approach 2
-    level order traversal o(n) time o(n) space

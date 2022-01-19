@@ -13,7 +13,7 @@ class Solution:
         low = 1
         high = len(nums) -1
         
-        while low <= high:
+        while low < high:
             cur = (low +high) // 2
             count = 0
             
@@ -23,11 +23,11 @@ class Solution:
             count = sum(num<=cur for num in nums)
             if count > cur:
                 #save elem and then move in left range to see if there is smaller elem
-                duplicate = cur
-                high = cur -1
+                # duplicate = cur
+                high = cur
             else:
                 low = cur + 1
-        return duplicate
+        return low
             
             
             

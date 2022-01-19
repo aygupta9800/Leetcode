@@ -42,6 +42,10 @@ class Solution:
 # DFS Approach 1 to solve the problem
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        """
+        Keep two set, visited/checked and path
+        if node in path return false, if its already checked, return true
+        """
         #building adj list from pre -> next
         adj = defaultdict(list)
         for nxt, prev in prerequisites:
@@ -67,6 +71,8 @@ class Solution:
             for nei in adj[node]:
                 if not dfs(nei):
                     return False
+            # post order traversal so we have to visit node
+            # only after its child/nei are visited
             path.remove(node)
             visited.add(node)
             output.append(node)

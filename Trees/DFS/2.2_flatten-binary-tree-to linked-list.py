@@ -5,10 +5,14 @@ class Solution:
     def flatten(self, node: Optional[TreeNode]) -> None:
         """
         Do not return anything, modify root in-place instead.
+        if we track tail of every subtree, we can attach it to next right
+        subtree in link list.
         """
+        # for no node, no tail
         if not node:
             return None
         
+        # for single node, tail is itself
         if not node.left and not node.right:
             return node
         

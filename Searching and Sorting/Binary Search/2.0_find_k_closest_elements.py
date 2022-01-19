@@ -11,10 +11,14 @@
 # TIme: O(log(n-k)+k), Space: O(1)
 class Solution:
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        # left bound cant be more than n-k
         left , right = 0, len(arr) -k
         
+        # we have to find left most bound
+        # so left distance will be less than left +k elem dis
         while left < right:
             mid = (left+right)// 2
+            # distance of left point from x < k+1 left point from x
             if x -arr[mid] > arr[mid+k] -x:
                 left = mid+1
             else:
