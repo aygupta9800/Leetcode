@@ -29,10 +29,23 @@ class Solution:
                 low = cur + 1
         return low
             
-            
-            
-        
+# Approach2: negative marking approach
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        for num in nums:
+            cur = abs(num)
+            if nums[cur] < 0:
+                duplicate = cur
+                break
+            nums[cur] = -nums[cur]
 
+        # Restore numbers
+        for i in range(len(nums)):
+            nums[i] = abs(nums[i])
+
+        return duplicate
+
+# Approach1 : Using hashset
 # Brute force(not uses constant extra space so not valid with constraint)
 class Solution:
     def findDuplicate(self, nums: List[int]) -> int:
@@ -41,19 +54,3 @@ class Solution:
             if n in numset:
                 return n
             numset.add(n)
-
-# ANother negative marking approach
-# class Solution:
-#     def findDuplicate(self, nums: List[int]) -> int:
-#         for num in nums:
-#             cur = abs(num)
-#             if nums[cur] < 0:
-#                 duplicate = cur
-#                 break
-#             nums[cur] = -nums[cur]
-
-#         # Restore numbers
-#         for i in range(len(nums)):
-#             nums[i] = abs(nums[i])
-
-#         return duplicate

@@ -41,6 +41,7 @@ class Solution:
         # return res
         return False
 
+# Approach 1:(backtrack with visit set)
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         ROWS, COLS = len(board), len(board[0])

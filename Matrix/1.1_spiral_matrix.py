@@ -4,9 +4,9 @@
 class Solution:
     def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
         result = []
-        rows, cols = len(matrix), len(matrix[0])
-        left, top = 0, 0
-        right, bottom = cols -1, rows -1
+        m, n = len(matrix), len(matrix[0])
+        left, right = 0, n-1
+        top, bottom = 0, m -1
         
         while top <= bottom and left <= right:
             # Traverse from left to right.
@@ -18,12 +18,14 @@ class Solution:
                 result.append(matrix[row][right])
             right -= 1
              # Make sure we are now on a different row.
+             # than the one which we used for left to right movement
             if top <= bottom:
                 # Traverse from right to left.
                 for col in range(right, left -1, -1):
                     result.append(matrix[bottom][col])
                 bottom -= 1
             # Make sure we are now on a different column.
+            # than the one which we used for top to bottom movement
             if left <= right:
                 # Traverse upwards.
                 for row in range(bottom, top -1, -1):

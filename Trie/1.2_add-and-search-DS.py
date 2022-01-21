@@ -37,7 +37,9 @@ class WordDictionary:
             for i in range(j, len(word)):
                 c = word[i]
                 if c == '.':
+                    # we need to search in all the cur.children values
                     for child in cur.children.values():
+                        # if any one of the branch path is able to find word
                         if dfs(i+1, child):
                             return True
                     return False

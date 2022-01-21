@@ -31,6 +31,7 @@ class Codec:
         """Decodes your encoded data to tree.
         """
         # self.i = 0  if No global variable 
+        # i pointer keep track of str pos
         def dfs(i):
             val = vals[i]
             if val == "N":

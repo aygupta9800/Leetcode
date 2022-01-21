@@ -5,8 +5,10 @@ class Solution:
         """
         left, right = 0, len(matrix) -1
         
-        while left <  right:
+        while left < right:
             top, bottom = left, right
+            # Imp step as we need measure of change from left pos for calculation
+            # we use i in range(right-left) rather than (left, right)
             for i in range(right-left):
                 #save the topleft
                 topLeft =matrix[top][left+ i]
