@@ -1,3 +1,39 @@
+#Approach3: Using Binary search
+# TIme O(nlogn)=> time: nlog(max-min) space O(1)
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        n = len(matrix)
+        #O(n) operation
+        def countLessEqual(mid):
+            count = 0
+            larger = matrix[n-1][n-1]
+            smaller = matrix[0][0]
+            r, c = n-1, 0
+            
+            while r >= 0 and c < n:
+                if matrix[r][c] > mid:
+                    #smallest value greater than mid
+                    larger = min(larger, matrix[r][c])
+                    r -=1
+                else:
+                    # elem is less than or equal to mid
+                    smaller = max(smaller, matrix[r][c])
+                    count += r+1
+                    c += 1
+            return count, smaller, larger
+        
+        l, r = matrix[0][0], matrix[n-1][n-1]
+        #O(log(max-min)operation)
+        while l < r:
+            mid = (l + r) // 2
+            count, smaller, larger = countLessEqual(mid)
+            if count == k:
+                return smaller
+            elif count < k:
+                l= larger
+            else:
+                r = smaller
+        return l
 
 #Heap Approach 2
 import heapq
@@ -19,30 +55,35 @@ class Solution:
         N = len(matrix)
         # Preparing our min-heap
         minHeap = []
+        # O(min(k,n)) time
         for r in range(min(k, N)): 
             # We add triplets of information for each cell
             minHeap.append((matrix[r][0], r, 0))
-        # Heapify our list
+        # Heapify our list :O(k) at max
         heapq.heapify(minHeap)    
         # Until we find k elements
+        # O(k)
         while k:
-            # Extract-Min
+            # Extract-Min: O(1) operation
             element, r, c = heapq.heappop(minHeap) 
             # If we have any new elements in the current row, add them
-            if c < N - 1:
+            if c < N - 1: #O(logk) operation
                 heapq.heappush(minHeap, (matrix[r][c+1], r, c+1))
             # Decrement k
             k -= 1
         
         return element  
+
 # Heap approach 1
 class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
         rows, cols = len(matrix), len(matrix[0])
         pq = []
+        # O(n2)
         for r in range(rows):
             for c in range(cols):
                 pq.append(matrix[r][c])
+        #O(n2logk)
         res = heapq.nsmallest(k, pq)
         return res[-1]
         

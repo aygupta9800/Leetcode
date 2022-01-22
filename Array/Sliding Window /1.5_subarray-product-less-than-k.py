@@ -14,6 +14,11 @@
 # Output: 0
 
 # Approach 1 sliding window
+# ex 10 5 2 k = 100
+    # 10- > prod = 10, ans = r-l+1 = 1 i.e [10]
+    # 10, 5 -> 2 prod = 50, ans += 2 i.e [5], [10,5]
+    # 10, 5, 2 -> product > k
+    # 5, 2  ->  ans += 2 i.e[5,2], [2]
 class Solution:
     def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
         if k <= 1: return 0
@@ -24,7 +29,7 @@ class Solution:
             while prod >= k:
                 prod /= nums[left]
                 left += 1
-            # counting subarray formed including right as end from left elem
+            # counting subarray formed with right pointers as end from left elem
             ans += right - left + 1
         return ans
         

@@ -4,7 +4,8 @@
 # Find two lines, which, together with the x-axis forms a container, such that the container contains the most water.
 
 # Notice that you may not slant the container.
-# Time complexity O(n)
+# Time complexity O(n), space o(1)
+
 def maxArea(self, height: List[int]) -> int:
     l, r = 0, len(height) -1
     area = 0

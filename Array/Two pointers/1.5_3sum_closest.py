@@ -12,6 +12,7 @@ class Solution:
             l,r = i+1, len(nums)-1
             while l < r:
                 thissum = nums[i] + nums[l] + nums[r]
+                # compare which sum is closest
                 if (abs(target- thissum) < abs(target- res)):
                     res = thissum
                 if thissum == target:
