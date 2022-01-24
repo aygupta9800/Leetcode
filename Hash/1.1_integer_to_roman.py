@@ -1,3 +1,29 @@
+# Approach 2 Using simple array so that u can iterate seq and dont need to repeat 
+#loop every time
+class Solution:
+    def intToRoman(self, num: int) -> str:
+        digitMap = [(1000, "M"), (900, "CM"),(500, "D"), (400, "CD"), \
+                     (100, "C"), (90, "XC"), (50, "L"), (40, "XL"),\
+                     (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")]
+        
+        '''
+        loop in reverse order such that biggest no. comes first. calculate count and 
+        num remain if that symbol is used
+        '''    
+        res = []
+        
+        for val, symbol in digitMap:
+            if num == 0:
+                break
+
+            if num >= val:
+                count = num // val #Its crucial for ex 3 is III
+                num = num % val
+                res.append(symbol*count)
+        return "".join(res)
+        
+
+# Approach 1 Using hashmap
 class Solution:
     def intToRoman(self, num: int) -> str:
         hash_table = {

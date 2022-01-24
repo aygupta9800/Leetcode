@@ -7,9 +7,32 @@
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+
+# Approach2: Using min heap 
+# Time: O(klogk), space: O(k)
 class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-        if not list or len(lists) == 0:
+        dummy = curr = ListNode(0)
+        q = []
+        # here node is pointing to head of that respective lth linked list
+        for l, node in enumerate(lists):
+            if node:
+                # adding l too so that we can put ordering for duplicate values.
+                q.append([node.val, l, node])
+        heapq.heapify(q)
+        while q:
+            val, l, node = heapq.heappop(q)
+            curr.next = ListNode(val)
+            curr = curr.next
+            node = node.next
+            if node:
+                heapq.heappush(q, [node.val, l, node])
+        return dummy.next
+
+# Approach1 by merging 2 link lists at a time
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        if not lists or len(lists) == 0:
             return None
 #         merge lists 2 at a time till total list remaining is 1
         while len(lists) != 1:
