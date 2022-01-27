@@ -1,3 +1,16 @@
+#Approach2 O(n*m) time n= total strings, m = len of strs[0]
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        res = ""
+        for i in range(len(strs[0])):
+            for s in strs:
+                if i == len(s) or s[i] != strs[0][i]:
+                    return res
+            res += s[i]
+        
+        return res
+
+#Approach 1
 # find the longest common prefix string amongst an array of strings.
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:

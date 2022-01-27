@@ -17,21 +17,6 @@
 # Output: True
 # Explanation: u can reach last from i=2 and from i=0 to i=2
 
-#Approach2: Using Greedy O(n) time, O(n) space
-class Solution:
-    def canJump(self, nums: List[int]) -> bool:
-        """
-        we only need leftmostGoodIndex, to know if current index is Good or not. so we can just store that when iterating from right to left
-        """
-        n = len(nums)
-        leftmostGoodIndex = n-1
-        for i in range(n-2, -1, -1):
-            # here nums[i] represent max jump so less is possible
-            furthestJump = i+ nums[i]
-            if furthestJump >= leftmostGoodIndex:
-                leftmostGoodIndex = i
-        return leftmostGoodIndex == 0
-
 #Approach1: Using Dp
 #O(n2)time, O(n) space
 class Solution:
@@ -53,3 +38,18 @@ class Solution:
         return dp[0]
         
         
+
+#Approach2: Using Greedy O(n) time, O(1) space
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        """
+        we only need leftmostGoodIndex, to know if current index is Good or not. so we can just store that when iterating from right to left
+        """
+        n = len(nums)
+        leftmostGoodIndex = n-1
+        for i in range(n-2, -1, -1):
+            # here nums[i] represent max jump so less is possible
+            furthestJump = i+ nums[i]
+            if furthestJump >= leftmostGoodIndex:
+                leftmostGoodIndex = i
+        return leftmostGoodIndex == 0

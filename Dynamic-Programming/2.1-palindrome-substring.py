@@ -4,6 +4,7 @@ class Solution:
     def countSubstrings(self, s: str) -> int:
         res = 0
         n = len(s)
+        #odd length
         for i in range(n):
             l, r = i, i
             while l>=0 and r<n and  s[l] == s[r]:
@@ -32,8 +33,8 @@ class Solution:
         
         # for len 2
         for i in range(n-1):
-            dp[i][i+1] = s[i] == s[i+1]
-            if dp[i][i+1] == True:
+            if s[i] == s[i+1]:
+                dp[i][i+1] = True
                 res += 1
         # for len 3 and above       
         for start in range(n-3, -1, -1):

@@ -12,7 +12,7 @@ class Solution:
         two_back = 1 #empty string can be encode 1 way
         one_back = 1 #1 char can be encoded 1 way
         
-        for i in range(1, n)``:
+        for i in range(1, n):
             curr = 0
             if s[i]!="0":
                 curr = one_back
