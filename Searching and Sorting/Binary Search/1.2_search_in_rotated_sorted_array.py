@@ -7,6 +7,37 @@
 # You must write an algorithm with O(log n) runtime complexity.
 
 
+# Approach 2
+class Solution:
+    def elemInFirst(self, nums, left, elem):
+        return nums[left] <= elem
+    
+    def search(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) -1
+        while l <= r:
+            mid = (l +r) // 2
+            print(mid)
+            if nums[mid] == target:
+                return mid
+            # # In case of duplicates
+            # if nums[mid] == nums[l]:
+            #     l += 1
+            #     continue
+            midInFirst = self.elemInFirst(nums, l, nums[mid])
+            targetInFirst = self.elemInFirst(nums, l, target)
+            
+            if midInFirst ^ targetInFirst:
+                if midInFirst:
+                    l = mid +1
+                else:
+                    r = mid -1
+            else:
+                if nums[mid] < target:
+                    l = mid +1
+                else:
+                    r = mid -1
+        return -1
+
 
 
 # pseudo code:

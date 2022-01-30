@@ -4,16 +4,8 @@
 # Explanation: "i" and "love" are the two most frequent words.
 # Note that "i" comes before "love" due to a lower alphabetical order.
 
-# Approach 1 Using Heap Nlogk time , o(n) space
-class Solution:
-    def topKFrequent(self, words: List[str], k: int) -> List[str]:
-        counter = Counter(words)
-        arr = [(-cnt, w) for w, cnt in counter.items()]
-        arr = heapq.nsmallest(k, arr, key= lambda x: (x[0], x[1]))
-        res = [x[1] for x in arr]
-        return res
 
-# Approach 3 Using heap , but with custom sort logic
+# Approach 3 Using heap , but with custom nsmallest function logic
 from heapq import heappush, heappop, heappushpop
 
 class Node:
@@ -33,6 +25,7 @@ class Solution:
             mapper[word] += 1
         
         h = list()
+        # Make min heap of size k such that keep poping min fre word if len of heap = k
         for word, freq in mapper.items():
             node = Node(word, freq)
             if len(h) == k:
@@ -44,6 +37,15 @@ class Solution:
         while h:
             result.append(heappop(h).word)
         return result[::-1]
+
+# Approach 1 Using Heap Nlogk time , o(n) space
+class Solution:
+    def topKFrequent(self, words: List[str], k: int) -> List[str]:
+        counter = Counter(words)
+        arr = [(-cnt, w) for w, cnt in counter.items()]
+        arr = heapq.nsmallest(k, arr, key= lambda x: (x[0], x[1]))
+        res = [x[1] for x in arr]
+        return res
 
 #Approch2: Nlogn basic sorting
 def topKFrequent(self, words: List[str], k: int) -> List[str]:

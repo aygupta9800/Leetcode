@@ -19,6 +19,9 @@
 from collections import defaultdict
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        """
+        Taking set here as removing edge from set will be of constant time
+        """
         inGoing = defaultdict(set)
         outGoing = defaultdict(set)
         for i,j  in prerequisites:
@@ -31,10 +34,10 @@ class Solution:
             take = canTake.pop()
             taken.append(take)
             for nextCourse in outGoing[take]:
-                inGoing[nextCourse].remove(take)
-                if len(inGoing[nextCourse]) == 0:
+                inGoing[nextCourse].remove(take) # remove ingoing edge of nextcourse
+                if len(inGoing[nextCourse]) == 0: # add nextcourse if no edge
                     canTake.append(nextCourse)
-        print(taken)
+        # print(taken)
         return len(taken) == numCourses
 
 

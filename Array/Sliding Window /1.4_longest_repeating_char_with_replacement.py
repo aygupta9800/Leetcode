@@ -20,6 +20,26 @@
 #Logic: At a given time, string can be replaced if total str len - max char length i.e replace lenght is <= k
 # if not we move window start with 1 position
 
+# Approach 2:
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        start = end = 0
+        dic = defaultdict(lambda: 0)
+        max_len = 0
+        while end < len(s):
+            dic[s[end]] += 1
+            #char_to_replace 
+            #replen = totalwindowsize - char(with max count) which we should not replace
+            repLen = (end -start + 1) - max(dic.values())
+            if repLen > k: # then we simply increase our left pointer
+                dic[s[start]] -= 1
+                start += 1
+            # else: # update the ans
+            max_len = max(max_len, end -start + 1)
+            end += 1
+        return max_len
+
+# Approach 1
 from collections import defaultdict
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
@@ -30,7 +50,6 @@ class Solution:
         while end < len(s):
             #char_to_replace
             repLen = (end -start + 1) - max(dic.values())
-            # print("==rep",repLen)
             if repLen > k:
                 dic[s[start]] -= 1
                 start += 1
