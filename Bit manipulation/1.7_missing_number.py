@@ -12,6 +12,15 @@ class Solution:
         expected_sum = n*(n+1)//2
         actual_sum = sum(nums)
         return expected_sum - actual_sum
+
+# Approach2 Using bit manipulation
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        missing = len(nums)
+        for i, num in enumerate(nums):
+            missing ^= i^num
+        return missing
+    
     
 
 #Approach2 Using hash set 
