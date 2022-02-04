@@ -38,7 +38,29 @@ class Solution:
                     r = mid -1
         return -1
 
-
+# Approach 2
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+	    N=len(nums)
+        l=0
+        r=N-1
+        while l<=r:
+            mid=(l+r)//2
+            if target==nums[mid]:
+                return mid
+            # first half order
+            if nums[mid]>=nums[l]:
+                if nums[l]<=target<nums[mid]:
+                    r=mid-1
+                else:
+                    l=mid+1
+            # second half order
+            else:
+                if nums[mid]<target<=nums[r]:
+                    l=mid+1
+                else:
+                    r=mid-1
+        return -1
 
 # pseudo code:
 # mid = left + right //2
