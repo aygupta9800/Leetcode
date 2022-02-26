@@ -10,6 +10,30 @@ class Solution:
     controlled recursion by using iterative approach
     """
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        n = 0
+        stack = []
+        curr = root
+        while curr and stack:
+            # Append all the left elem of root for inorder traversal
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            curr = stack.pop()
+            n += 1
+            if n == k:
+                return curr.val
+            # as root and root.left must have already poped up
+            # append right subtree of root into stack for inorder traversal
+            curr = curr.right
+
+
+
+#ANother solution
+class Solution:
+    """
+    controlled recursion by using iterative approach
+    """
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
         stack = []
         while True:
             # Append all the left elem of root for inorder traversal
