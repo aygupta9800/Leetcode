@@ -67,6 +67,7 @@ class Solution:
         while stack:
             depth, root = stack.pop()
             children = [root.left, root.right]
+            # only for leaf nodes we compute min_depth
             if not any(children):
                 min_depth = min(depth, min_depth)
             for c in children:

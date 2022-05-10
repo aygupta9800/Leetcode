@@ -27,3 +27,17 @@ class Solution:
             return False
         dfs(root)
         return res[0]
+
+
+# Approach2:
+        """
+        Aproach2: running dfs with updating ancestor in dfs
+        
+        """
+        leaves = [p, q]
+        def dfs(node):
+            if not node or node in leaves:
+                return node
+            L, R = dfs(node.left), dfs(node.right)
+            return node if L and R else L or R
+        return dfs(root)

@@ -19,6 +19,7 @@
 #         self.val = val
 #         self.left = left
 #         self.right = right
+# Approach1 Using recursion. we can further optimise using limited recursion with stack
 class Solution:
     def str2tree(self, s: str) -> Optional[TreeNode]:
         return self.dfs(s, 0) [0]
@@ -46,7 +47,7 @@ class Solution:
         if i < len(s) and s[i] == "(":
             node.left, i = self.dfs(s, i+1)
         if node.left and i < len(s) and s[i] == '(':
-            node.right, i = self.dfs(s, i+1)
+          node.right, i = self.dfs(s, i+1)
         return node, i + 1 if i < len(s) and s[i] == ')' else i
         
         

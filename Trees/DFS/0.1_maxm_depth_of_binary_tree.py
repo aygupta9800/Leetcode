@@ -8,7 +8,6 @@
 #Approach 1: Recursion
 class Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
-        depth = 0
         if root is None:
             return 0
         else:

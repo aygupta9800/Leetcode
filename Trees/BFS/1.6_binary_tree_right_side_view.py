@@ -1,6 +1,6 @@
 # Appraoch 1 My soln
-TIme O(n)
-SPace: O(D): diamter of the tree that is O(n)
+# TIme O(n)
+# SPace: O(D): diamter of the tree that is O(n)
 from collections import deque
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:

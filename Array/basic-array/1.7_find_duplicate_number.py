@@ -4,6 +4,29 @@
 # NOTE
 # You must solve the problem without modifying the array nums and uses only constant extra space.
 
+# Approach 3: Floyd cycle detection algorithm:
+# O(n)
+# we try to navigate using fn n f(x) = nums[x] to construct the sequence:
+# x, nums[x], nums[nums[x]], nums[nums[nums[x]]], ....
+
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        
+        # solution 2: using floyd cycle detection algorithm
+        slow = fast = nums[0]
+        while True:
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+            # intersection point
+            if slow == fast:
+                break
+        slow = nums[0]
+        while slow != fast:
+            slow = nums[slow]
+            fast = nums[fast]
+        
+        return fast
+
 
 #Binary search approach
 #logic: [1, 2 ...n] . count of elem <= elem will be same as elem until duplicate element is reached. then it will be elem + 1

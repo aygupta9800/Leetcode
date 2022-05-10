@@ -42,6 +42,7 @@ class Solution:
             # remove the current sum from the hashmap
             # in order not to use it during
             # the parallel subtree processing\
+            # NOTE: dont forget to remove the curSum from dic
             prefixSums[curSum] -= 1
             
         count = 0

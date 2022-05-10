@@ -1,6 +1,21 @@
 # Need to learn dp, memoization and bfs approach to solve 
 # the problem
 
+#approach 3: dp topdown, looping from backward
+# time: O(n2* m) where n is len of string and m is len of dic
+class Solution:
+    def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        # easier way to loop on index in reverse order and then checking if word starting from it in dic
+        n = len(s)
+        dp = [False for i in range(n+1)]
+        dp[n] = True
+        for i in range(n -1, -1, -1):
+            for w in wordDict:
+                if i+len(w) <= len(s) and s[i: i+len(w)] == w and dp[i+len(w)] == True:
+                    dp[i] = True
+                    break
+        return dp[0]
+
 #Approach2: Using dynamic progamming O(n3) time complexity
 # O(n)space
 class Solution:
