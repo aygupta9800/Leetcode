@@ -31,18 +31,3 @@ class Solution:
             rob_next = current
         
         return rob_next
-        #2. way
-        # """
-        # Imagine 2 pts t1 and t2 such that
-        # first t1 robs a house then leaves a note and move onto next(2) house. and calculate value based on t2 which is 2 behind the current pos and current. then t2 moves to next house(1).
-        # this way whenever t1 calculates, t2 is 2 behind
-        # """
-        # t1 = 0
-        # t2 = 0
-        # for current in nums:
-        #     temp = t1
-        #     t1 = max(current+ t2, t1)
-        #     t2 = temp
-        
-        # return t1
-    

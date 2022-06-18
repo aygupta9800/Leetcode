@@ -17,5 +17,6 @@ class Solution:
         for i, price in enumerate(prices):
             if price > min_buy:
                 max_profit = max(max_profit, price - min_buy)
-            min_buy = min(min_buy, price)
+            else:
+                min_buy = price
         return max_profit
