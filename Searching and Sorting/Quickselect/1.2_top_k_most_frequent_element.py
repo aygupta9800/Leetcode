@@ -50,6 +50,24 @@ class Solution:
         quickselect(0, n-1, n-k)
         return unique[n-k:]
 
+# Bucket sort approach
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count = Counter(nums)
+        freq = [[] for i in range(len(nums) + 1)]
+        #O(n)
+        for n, c in count.items():
+            freq[c].append(n)
+        
+        res = []
+        #O(n*k)
+        for i in range(len(freq) -1, -1, -1):
+            for n in freq[i]:
+                res.append(n)
+                if len(res) == k:
+                    return res
+
+
 #appraoch3 Heap
 from collections import Counter
 class Solution:

@@ -15,40 +15,49 @@ class Solution:
     def dist(self, pt):
         return pt[0] ** 2 + pt[1] ** 2
     
-    def find(self, lst, k):
-        if len(lst) == k:
-            return [i[0] for i in lst]
-        rand_tup = random.choice(lst)
-        pivot = rand_tup[1]
+    def partition(self, lst, left, right, pivot_index):
+        pivot = lst[pivot_index][1]
+        #Swap pivot node with right most node:
+        lst[right], lst[pivot_index] = lst[pivot_index], lst[right]
         
-        i = 0
-        left = []
-        right = []
-        equal = []
+        p = left
+        i = left
         
-        while i < len(lst):
+        while i < right:
             curr = lst[i]
             dist = curr[1]
             if dist < pivot:
-                left.append(curr)
-            elif dist > pivot:
-                right.append(curr)
-            else:
-                equal.append(curr)
+                #Swap the ith point with p
+                lst[p], lst[i] = lst[i],lst[p]
+                p += 1
             i += 1
-        len_left = len(left)
-        if len_left == k:
-            return [i[0] for i in left]
-        elif len_left + len(equal) == k:
-            return [i[0] for i in left] + [i[0] for i in equal]
-        elif len_left >k:
-            return self.find(left, k)
+    
+        # DONT FORGET TO PUT PIVOT BACK
+        # Swap p with pivot right elem
+        lst[p], lst[right] = lst[right], lst[p]
+        
+        return p
+
+    
+    def quickselect(self, lst, left, right, k):
+        pivot_index = random.randint(left, right)
+        p = self.partition(lst, left, right, pivot_index)
+        if p == k:
+            return [i[0] for i in lst[:p]]
+        elif p >k:
+            return self.quickselect(lst, left, p-1, k)
         else:
-            return [i[0] for i in left] + [i[0] for i in equal] + self.find(right, k-len_left-len(equal))
-             
+            return self.quickselect(lst,p+1,right, k)
+
+         
+        
     def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        if len(points) == k:
+            return points
         lst = [(i, self.dist(i)) for i in points]
-        return self.find(lst, k)
+        return self.quickselect(lst,0, len(points) -1, k)
+    
+
 
 
 # Appraoch 1: Using max heap nlogk

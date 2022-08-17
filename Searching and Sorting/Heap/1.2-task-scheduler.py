@@ -15,6 +15,31 @@
 # A -> B -> idle -> A -> B -> idle -> A -> B
 # There is at least 2 units of time between any two same tasks.
 
+# Approach 3 (By math: ans= time dictated by fmax or total task =  (fmax -1) * (n+1)  + nmax or len(tasks))
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        """
+        we can do this by math also.
+        # either result is dictated by max freq elem  or task len if its too much
+        either max frequency elements dictates the whole soln
+        i.e  (fmax -1) * (n+1) + nmax or len(tasks)
+        n = cooldown period
+        """
+        freqarray = [0] * 26
+        for t in tasks:
+            freqarray[ord(t)- ord('A')] += 1
+            
+        
+        # max frequency
+        fmax = max(freqarray)
+        # count of max frequency
+        nmax = freqarray.count(fmax)
+        
+        return max(len(tasks), (fmax -1) * (n+1) + nmax)
+
+
+
+# Approach 1
 class Solution:
     """
     to reduce idle time we would like to pick max freq char which is available to execute at current time. so we use maxHeap here.

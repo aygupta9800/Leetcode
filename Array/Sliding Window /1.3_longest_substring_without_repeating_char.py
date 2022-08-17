@@ -12,11 +12,9 @@ class Solution:
         while end < len(s):
             if s[end] in dic and dic[s[end]] >= start:
                 start = dic[s[end]] + 1
-                dic[s[end]] = end
-            else:
-                dic[s[end]] = end
+            dic[s[end]] = end
             
-            print(end, start)
+            # print(end, start)
             max_len = max(max_len, end- start + 1)
             end += 1
         

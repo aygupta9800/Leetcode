@@ -26,7 +26,7 @@ class Solution:
         #O(log(max-min)operation)
         while l < r:
             mid = (l + r) // 2
-            count, smaller, larger = countLessEqual(mid)
+             
             if count == k:
                 return smaller
             elif count < k:
@@ -44,9 +44,10 @@ import heapq
 # You must find a solution with complexity better than O(n2).
 # Time Complexity: let X= min(K, N); X+Klog(X)
 
-# Well the heap construction takes O(X)O(X) time.
-# After that, we perform KK iterations and each iteration has two operations. We extract the minimum element from a heap containing XX elements. Then we add a new element to this heap. Both the operations will take O(\log(X))O(log(X)) time.
-# Thus, the total time complexity for this algorithm comes down to be O(X + K\log(X))O(X+Klog(X)) where XX is \text{min}(K, N)min(K,N).
+# Well the heap construction takes O(X) time.
+# After that, we perform K iterations and each iteration has two operations. We extract the minimum element from a 
+# heap containing X elements. Then we add a new element to this heap. Both the operations will take O(log(X)) time.
+# Thus, the total time complexity for this algorithm comes down to be sO(X+Klog(X)) where X is min(K,N).
 # Space Complexity: O(X) which is occupied by the heap.
 class Solution:
     def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
@@ -67,7 +68,7 @@ class Solution:
             # Extract-Min: O(1) operation
             element, r, c = heapq.heappop(minHeap) 
             # If we have any new elements in the current row, add them
-            if c < N - 1: #O(logk) operation
+            if c < N - 1: #O(log(min(k, n))) operation
                 heapq.heappush(minHeap, (matrix[r][c+1], r, c+1))
             # Decrement k
             k -= 1

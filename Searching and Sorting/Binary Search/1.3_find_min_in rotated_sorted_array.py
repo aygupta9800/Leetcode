@@ -20,6 +20,8 @@ class Solution:
             # if the mid element is lesser than its previous element then mid element is the smallest
             if nums[mid - 1] > nums[mid]:
                 return nums[mid]
+
+            # comparing mid elem with high elem to reduce search spaces
             if nums[mid]>nums[high]:
                 low=mid+1
             else:

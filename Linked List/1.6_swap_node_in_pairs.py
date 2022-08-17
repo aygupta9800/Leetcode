@@ -26,7 +26,7 @@ class Solution:
             #reverse the pair
             second.next = curr
             curr.next = nextPair
-                # as second variable will come before curr now after reverse
+            # as second variable will come before curr now after reverse
             prev.next = second
             
             #update the pointer

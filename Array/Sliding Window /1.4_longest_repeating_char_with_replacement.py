@@ -20,6 +20,33 @@
 #Logic: At a given time, string can be replaced if total str len - max char length i.e replace lenght is <= k
 # if not we move window start with 1 position
 
+# Approach 3
+#keep track of max_count so u dont have to loop in again
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        """
+        char: count
+        len of window - max count in window <= k
+        longest substring
+        """
+        dic = defaultdict(int)
+        max_count = 0
+        start, end = 0, 0
+        ans = 0
+        while end < len(s):
+            dic[s[end]] += 1
+            if (max_count < dic[s[end]]):
+                max_count = dic[s[end]]
+            # print(start, ":", end, ":", max_count)
+            while start<= end and (end - start + 1) - max_count > k:
+                dic[s[start]] -= 1
+                start += 1
+            ans = max(ans, end-start+1)
+            end +=1
+        return ans
+            
+  
+
 # Approach 2:
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:

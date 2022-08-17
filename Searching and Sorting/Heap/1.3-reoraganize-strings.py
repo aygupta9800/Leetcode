@@ -12,7 +12,7 @@
 # Input: s = "aaab"
 # Output: ""
 
-#time complexity: O(nlogk) where n total alphabets, k unique alphbets, space: O(k)=> unique alphabets
+# time complexity: O(nlogk) where n total alphabets, k unique alphbets, space: O(k)=> unique alphabets
 class Solution:
     def reorganizeString(self, s: str) -> str:
         """

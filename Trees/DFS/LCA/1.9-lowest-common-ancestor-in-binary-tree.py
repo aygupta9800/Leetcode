@@ -17,7 +17,7 @@ class Solution:
                 return False
             left = dfs(curr.left)
             right = dfs(curr.right)
-            mid = curr.val ==p.val or curr.val == q.val
+            mid = curr ==p or curr == q
             # print("curr.val",curr.val, "left", left,"==", right, "==", mid)
             if (left and right) or (left and mid) or (right and mid):
                 # print("curr.val", curr.val)

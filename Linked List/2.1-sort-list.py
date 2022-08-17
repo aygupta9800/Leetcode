@@ -78,8 +78,9 @@ class Solution:
         Top down merge sort
         """
         def getMid(head):
-            if not head or not head.next:
-                return head
+            # not needed as it is checked before calling this function
+            # if not head or not head.next:
+            #     return head
             fast, slow = head.next, head
             while fast and fast.next:
                 fast = fast.next.next
@@ -102,7 +103,6 @@ class Solution:
                     cur = cur.next
             cur.next =  lst1 if lst1 != None else lst2
             return dummy.next
-                
             
         if head == None or head.next == None:
             return head
