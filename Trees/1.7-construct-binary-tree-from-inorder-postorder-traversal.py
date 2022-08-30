@@ -6,10 +6,11 @@
 #         self.right = right
 
 # Approach2 : Recursion with index mapping
+# Time O(n) Space O(n)
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
         
-        # index of left and right in order range
+        # index of left and right in-order range
         def arrayToTree(left, right):
             nonlocal pIndex
             # if there are no elem to constructs the tree
@@ -35,8 +36,31 @@ class Solution:
             inorderMap[val] = i
         return arrayToTree(0, len(inorder) -1)
     
+#Approach 2 with indexes of inorder without slicing
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        """
+        Approach 1: Recursive
+        """
+        # based on inorder index:
+        pIndex = 0
+        def arrayToTree(left, right):
+            nonlocal pIndex
+            # if not preorder or not inorder:
+            #     return None
+            if left > right:
+                return None
+            root = TreeNode(preorder[pIndex])
+            mid = inorder.index(preorder[pIndex])
+            pIndex += 1
+            root.left = arrayToTree(left, mid-1)
+            root.right = arrayToTree(mid+1, right)
+            return root
+        
+        return arrayToTree(0, len(inorder) - 1)
+        
 
-# Approach 1 Recursive with list slicing
+# Approach 1 Recursive with list slicing O(n2) time complexity
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
         if not preorder or not inorder:

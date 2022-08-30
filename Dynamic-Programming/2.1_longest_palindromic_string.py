@@ -70,4 +70,38 @@ class Solution:
                 
                   
             
+# Approach 3: dp but with looping for window size
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        
+        n = len(s)
+        
+        dp = [[False for j in range(n)] for i in range(n)]
+        
+        # Base condn
+        for i in range(n):
+            dp[i][i] = True
+        
+        mxLen = 1 
+        res = s[0]
+        
+        # 2 size window
+        for i in range(n-1):
+            if s[i] == s[i+1]:
+                dp[i][i+1] = True 
+                if mxLen < 2:
+                    mxLen = 2
+                    res = s[i: i+2]
+        
+        # j = window size, i starting point, i+j-1 end point
+        for j in range(3, n+1):
+            for i in range(n-j, -1, -1):
+                if s[i] == s[i+j -1] and dp[i+1][i+j-2]:
+                    dp[i][i+j-1] = True
+                    if mxLen < j:
+                        mxLen = j
+                        res = s[i: i+j]
+        
+        return res
+        
         

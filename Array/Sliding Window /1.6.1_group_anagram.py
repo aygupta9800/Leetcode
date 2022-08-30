@@ -1,14 +1,4 @@
 
-from collections import defaultdict
-# compare by sorted string
-class Solution:
-    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        ans = collections.defaultdict(list)
-        for s in strs:
-#             No need to check if not in dic as default will be []
-            ans[str(sorted(s))].append(s)
-        return ans.values()
-
 # Approach2
 # Two strings are anagrams if and only if their character counts (respective number of occurrences of each character) are the same.
 
@@ -16,6 +6,7 @@ class Solution:
 
 # We can transform each string s into a character count, count, consisting of 26 non-negative integers representing the 
 # number of a's, b's, c's, etc. We use these counts as the basis for our hash map.
+# Time complexity O(N.k) where n = total strings and k is max len of string
 class Solution:
     def groupAnagrams(strs):
         ans = collections.defaultdict(list)
@@ -26,6 +17,18 @@ class Solution:
             ans[tuple(count)].append(s)
         return ans.values()
 
+
+
+from collections import defaultdict
+# compare by sorted string
+# Time O(NKlogk)
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        ans = collections.defaultdict(list)
+        for s in strs:
+#             No need to check if not in dic as default will be []
+            ans[str(sorted(s))].append(s)
+        return ans.values()
 
 
 

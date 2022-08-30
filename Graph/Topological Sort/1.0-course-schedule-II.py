@@ -1,4 +1,31 @@
 #Approach2 Using Kanhns algo
+# soln1 Time O(V+E), Space O(V+E)
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        
+        inDegrees = [0 for i in range(numCourses)]
+        outGoing = defaultdict(list)
+        
+        for i, j in prerequisites:
+#              j -> i
+            outGoing[j].append(i)
+            inDegrees[i] += 1
+        
+        canTake = [i for i in range(numCourses) if inDegrees[i] == 0]
+        
+        taken = []
+        
+        while len(canTake) > 0:
+            node = canTake.pop()
+            taken.append(node)
+            for nei in outGoing[node]:
+                inDegrees[nei] -= 1
+                if inDegrees[nei] == 0:
+                    canTake.append(nei)
+        
+        return taken if len(taken) == numCourses else []
+ 
+# soln2
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         inGoing = defaultdict(set)
