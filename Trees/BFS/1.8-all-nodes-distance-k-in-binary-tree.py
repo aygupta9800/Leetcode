@@ -53,13 +53,15 @@ class Solution:
                 if L != -1:
                     if L+1== k: # L+1 will be distance of node from target
                         res.append(node.val)
-                    subtree_add(node.right, L+2) #node.right will be at dist L+2
+                    else:#append other side of children at dist k
+                        subtree_add(node.right, L+2) #node.right will be at dist L+2
                     return L+1
                 #means target is in right side of node
                 elif R != -1:
                     if R +1 == k:
                         res.append(node.val)
-                    subtree_add(node.left, R+2)
+                    else:
+                        subtree_add(node.left, R+2)
                     return R+1
                 # target is not part of subtree from current node
                 else:
@@ -81,6 +83,8 @@ class Solution:
 #  Approach 1: Annonate Parent
 # 1 put every node with info of parent, 2nd do bfs search from target to find the answer
 #Time: O(n), space(O(N))
+
+#Note: better soln to store parent of node in hashmap to avoid altering input tree
 
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:

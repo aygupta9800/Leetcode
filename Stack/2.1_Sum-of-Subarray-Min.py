@@ -9,6 +9,54 @@
 # pattern: such that A[j] <=A[i] and j < i and first min element from left to i.
 # result[i] = result[j] + A[i]*(i-j)
 
+
+
+# Approach 1: 
+class Solution:
+    def sumSubarrayMins(self, arr: List[int]) -> int:
+        """
+        3
+        
+        1 1
+        1 1 2
+        1 1 2 4
+        
+        if A[i-1] <= A[i] => res[i] = res[i-1] + A[i]
+        if A[i] < A[i-1]:
+            then we find j < i such that A[j] <= A[i]
+            then res[i] = res[j] + (j-i) * A[i]
+            
+            
+        so now we need to keep track of min 
+        3 1 2 4 0.5
+        
+        4
+        2
+        1
+        monostack increasing stack is useful here so that we can keep track of last minium value index we saw.
+        it helps in identifying ranges between which a value is min.
+        """
+        
+        res = [0] * len(arr)
+        stack = []
+        #  we need to handle empty check
+        
+        for i in range(len(arr)):
+            # pop all the indexes whoes value is greater than current value
+            while stack and arr[stack[-1]] > arr[i]:
+                stack.pop()
+            # if stack is empty means i is shortest elem
+            if len(stack) == 0:
+                res[i] = (i+1) * arr[i]
+            else:
+                j = stack[-1]
+                res[i] = res[j] + (i-j) *arr[i]
+            # we need to append the current index in the stack
+            stack.append(i)
+        return sum(res) % (10 **9+ 7)
+                
+
+
 # Solution
 # This forms the basis of the solution: we build monotonously incressing (well, strictly speaking - non-decreasing) stack. And then find previous less or equal value and reuse it's sum:
 

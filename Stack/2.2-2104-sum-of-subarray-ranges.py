@@ -1,4 +1,59 @@
+
 # O(n) time complexity
+#Approach1
+class Solution:
+    def subArrayRanges(self, nums: List[int]) -> int:
+        """
+        1 4 2 3 3
+        
+        1
+        This question can be divided into 
+        sum of subarray max - sum of subarray min
+        so we keep two monotonic stack, one of max, one for min
+        
+        
+        """
+        n = len(nums)
+        resMin = [0] * n
+        minstack = []
+        
+        # to handle empty check
+        
+        for i in range(n):
+            while minstack and nums[minstack[-1]] > nums[i]:
+                minstack.pop()
+            # if stack is empty means i is shortest elem
+            if len(minstack) == 0:
+                resMin[i] = (i+1) * nums[i]
+            else:
+                j = minstack[-1]
+                resMin[i] = resMin[j] + (i-j) *nums[i]
+            # we need to append the current index in the stack
+            minstack.append(i)
+        # return sum(res) % (10 **9+ 7)
+        
+
+        # Now solve for sum of max subarrays
+        resMax = [0] * n
+        maxstack = []
+        
+        for i in range(n):
+            #pop all the elem which are smaller than current value
+            while maxstack and nums[maxstack[-1]] < nums[i]:
+                maxstack.pop()
+            if maxstack:
+                j = maxstack[-1]
+                resMax[i] = resMax[j] +(i-j) * nums[i]
+            else:
+                resMax[i] = (i+1) * nums[i]
+            maxstack.append(i)
+        
+        return sum(resMax) - sum(resMin)
+     
+        
+
+
+# Approach 2
 class Solution:
     def subArrayRanges(self, nums: List[int]) -> int:
         """

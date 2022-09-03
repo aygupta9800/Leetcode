@@ -1,4 +1,4 @@
-# https://leetcode.com/problems/implement-trie-prefix-tree/solution/
+ # https://leetcode.com/problems/implement-trie-prefix-tree/solution/
 class TrieNode:
     def __init__(self):
         self.children = {}

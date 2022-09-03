@@ -15,6 +15,7 @@ class Trie:
     def insert(self, sentence, times):
         cur = self.root
         for char in sentence:
+            # Since we have default trienode for trie children
             cur = cur.child[char]
         if not cur.isWord:
             cur.isWord = True
@@ -22,6 +23,12 @@ class Trie:
             cur.times = times if times else 1
         else:
             cur.times += 1
+
+    def dfs(self, node, dic):
+        if node.isWord:
+            dic[node.isWord] = node.times
+        for ch in node.child:
+            self.dfs(node.child[ch], dic)
         
     def search(self, char):
         res = []
@@ -31,16 +38,21 @@ class Trie:
             if c not in cur.child:
                 return None
             cur = cur.child[c]
-            
-        stack = []
-        stack.append(cur)
-        while stack:
-            node = stack.pop()
-            if node.isWord:
-                dic[node.word] = node.times
-            for ch in node.child:
-                n = node.child[ch]
-                stack.append(n)
+
+
+        # Running dfs iteratively from the current node    
+        # stack = []
+        # stack.append(cur)
+        # while stack:
+        #     node = stack.pop()
+        #     if node.isWord:
+        #         dic[node.word] = node.times
+        #     for ch in node.child:
+        #         n = node.child[ch]
+        #         stack.append(n)
+
+
+
         i = 3
         for k,v in sorted(dic.items(), key=lambda x:(-x[1],x[0]) ):
             if i ==0:

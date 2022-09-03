@@ -16,6 +16,32 @@
 #     . Remove outgoing edges after taking each course
 #     . If a course has no more in-going edge, we can take it
 
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        """
+        """
+        inDegrees = [0 for i in range(numCourses)]
+        outGoing = defaultdict(list)
+        
+        # j-> i
+        for i, j in prerequisites:
+            outGoing[j].append(i)
+            inDegrees[i] += 1
+        
+        canTake = [i for i in range(numCourses) if inDegrees[i] == 0]
+        taken = []
+        
+        while len(canTake) > 0:
+            node = canTake.pop()
+            taken.append(node)
+            for nextCourse in outGoing[node]:
+                inDegrees[nextCourse] -= 1
+                if inDegrees[nextCourse] == 0:
+                    canTake.append(nextCourse)
+        return len(taken) == numCourses
+
+
+# Alternative soln
 from collections import defaultdict
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:

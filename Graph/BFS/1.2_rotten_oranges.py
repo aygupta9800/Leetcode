@@ -32,6 +32,7 @@ class Solution:
                 lst = [(r+1, c),(r-1, c),(r, c+1),(r, c-1)]
                 for row, col in lst:
                     if row >=0 and col >=0 and row < ROWS and col < COLS and grid[row][col]==1:
+                        # mark it rotten so doesnt get picked up again
                         grid[row][col] = 2
                         fresh_oranges -= 1
                         q.append((row, col))
