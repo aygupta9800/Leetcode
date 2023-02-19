@@ -13,6 +13,36 @@ Explanation: The two longest increasing subsequences are [1, 3, 4, 7] and [1, 3,
 # First, know how long is the longest increasing sequence
 # Second, count the frequency
 
+# solution 2 starting from end and cal LIS starting at i:
+class Solution:
+    def findNumberOfLIS(self, nums: List[int]) -> int:
+        """
+        LIS[i] representing length of LIS starting at index i
+        cnt[i] represent the cnt of LIS starting at i
+        
+        LIS[i] = LIS[j]+ 1 if nums[j] > nums[i] 
+        """
+        if not nums:
+            return 0
+        n = len(nums)
+        LIS = [1] * n
+        cnt = [1] * n
+        mx = 1
+        for i in range(n-2, -1, -1):
+            for j in range(i+1, n):
+                if nums[j] > nums[i]:
+                    if LIS[j] + 1 > LIS[i]:
+                        LIS[i] = LIS[j]+1
+                        cnt[i] = cnt[j]
+                    elif LIS[j] +1 == LIS[i]:
+                        cnt[i] += cnt[j]
+            mx = max(mx, LIS[i])
+        mxCount = 0
+        for ln, count in zip(LIS, cnt):
+            if ln == mx:
+                mxCount += count
+        return mxCount
+
 """
 # Thus, we create 2 lists with length n
 # dp[i]: meaning length of longest increasing sequence
@@ -31,7 +61,7 @@ class Solution:
         if not nums: return 0
         n = len(nums)
         m = 1 #longest length
-        dp = [1] * n
+        dp = [1] * n # LIS ending at that pos
         cnt = [1] * n #cnt of longest length sequence till ith position
         for i in range(1, n):
             for j in range(i):

@@ -6,40 +6,40 @@
 
 # Input: board = [["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
 # Output: true
-
-# updated soln: instead of visit set, mark the node with sth and remove mark before return
+# Approach 2
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        self.m, self.n = len(board), len(board[0])
-        self.board = board
+        # updated soln: instead of visit set, mark the node with sth and remove mark before return
+
+        m, n = len(board), len(board[0])
         
-        for r in range(self.m):
-            for c in range(self.n):
-                if self.backtrack(r, c, word):
+        def backtrack(r, c, i):
+            #base case
+
+            if len(word) == i:
+                return True
+
+            #Check if current state valid
+            if r < 0 or r == m or c <0 or c == n or board[r][c] != word[i]:
+                return False
+
+            #Mark the choice before exploring
+            board[r][c] = "#"
+            for row, col in [(r, c+1), (r, c-1), (r+1, c), (r-1, c)]:
+                if backtrack(row, col, i+1):
+                    return True
+            board[r][c] = word[i]
+            # return res
+            return False
+        
+        for r in range(m):
+            for c in range(n):
+                if backtrack(r, c, 0):
                     return True
                 
         return False
     
-    def backtrack(self, r, c, suffix):
-        #base case
-        if len(suffix) == 0:
-            return True
-        
-        #Check if current state valid
-        if r < 0 or r == self.m or c <0 or c == self.n or self.board[r][c] != suffix[0]:
-            return False
-        
-        #Mark the choice before exploring
-        self.board[r][c] = "#"
-        for row, col in [(r, c+1), (r, c-1), (r+1, c), (r-1, c)]:
-            # res = self.backtrack(row, col, suffix[1:])
-            # if res:
-            #     break
-            if self.backtrack(row, col, suffix[1:]):
-                return True
-        self.board[r][c] = suffix[0]
-        # return res
-        return False
+
 
 # Approach 1:(backtrack with visit set)
 class Solution:

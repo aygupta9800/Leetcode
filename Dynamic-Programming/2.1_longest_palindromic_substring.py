@@ -54,7 +54,7 @@ class Solution:
         # for len 2
         for i in range(n-1):
             dp[i][i+1] = s[i] == s[i+1]
-            if dp[i][i+1] == True:
+            if dp[i][i+1] == True and maxLen == 1:
                 res = s[i:i+2]
                 maxLen = 2
         # checking with length 3 onwards and start point from end

@@ -1,5 +1,8 @@
 #Approach2 Using Kanhns algo
 # soln1 Time O(V+E), Space O(V+E)
+from collections import deque
+
+
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         
@@ -11,12 +14,16 @@ class Solution:
             outGoing[j].append(i)
             inDegrees[i] += 1
         
-        canTake = [i for i in range(numCourses) if inDegrees[i] == 0]
+        # canTake = [i for i in range(numCourses) if inDegrees[i] == 0]
+        canTake = deque([])
+        for i in range(numCourses):
+            if inDegrees[i] == 0:
+                canTake.append(i)
         
         taken = []
         
         while len(canTake) > 0:
-            node = canTake.pop()
+            node = canTake.popleft()
             taken.append(node)
             for nei in outGoing[node]:
                 inDegrees[nei] -= 1
@@ -24,6 +31,45 @@ class Solution:
                     canTake.append(nei)
         
         return taken if len(taken) == numCourses else []
+
+# APPROACH-2 Using DFS:
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # opposite Adj list, crs => list(prereq)
+        adj = defaultdict(list)
+        for crs, prev in prerequisites:
+            adj[crs].append(prev)
+        
+        # maintain a current path visit set for checking cycle
+        visit = set()
+        # a set for taken nodes so that we can know if pre crs is taken before
+        takenSet = set()
+        takenOutput = []
+        def dfs(crs):
+            # cycle
+            if crs in visit:
+                return False
+            # already taken
+            if crs in takenSet:
+                return True
+
+            # put node in current path and explore prereq
+            visit.add(crs)
+            for prev in adj[crs]:
+                if not dfs(prev):
+                    return False
+            # remove node from current path and add in taken output and set
+            visit.remove(crs)
+            takenSet.add(crs)
+            takenOutput.append(crs)
+            return True
+        
+        for crs in range(numCourses):
+            if not dfs(crs):
+                return []
+        
+        return takenOutput
+
  
 # soln2
 class Solution:

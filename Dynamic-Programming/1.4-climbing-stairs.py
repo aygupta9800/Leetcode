@@ -21,12 +21,18 @@ class Solution:
 # just need two variables first and second
 class Solution:
     def climbStairs(self, n: int) -> int:
-        if n <= 2:
-            return n
-        first = 1
-        second = 2
-        for i in range(3, n+1):
-            res = first+ second
-            first = second
-            second = res
-        return second
+        # if n <= 2:
+        #     return n
+        # first = 1
+        # second = 2
+        # for i in range(3, n+1):
+        #     res = first+ second
+        #     first = second
+        #     second = res
+        # return second
+        prev = 1 # Dp[0]
+        cur = 1 # Dp[1]
+        for i in range(2, n+1):
+            prev, cur = cur, prev + cur
+        
+        return cur

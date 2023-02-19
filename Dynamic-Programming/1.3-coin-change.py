@@ -14,7 +14,7 @@ class Solution:
         #     for amt in range(coin, amount+1):
         #         dp[amt] = min(dp[amt], dp[amt-coin] +1)
         for a in range(1, amount+1):
-            for c in coins:
+        for c in coins:
                 if a >= c:
                     dp[a] = min(dp[a], dp[a-c] +1)
         return dp[amount] if dp[amount] != float('inf') else -1

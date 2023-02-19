@@ -16,55 +16,120 @@
 #     . Remove outgoing edges after taking each course
 #     . If a course has no more in-going edge, we can take it
 
+from collections import defaultdict, deque
+# time complexity: O(E+V)
+
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        """
-        """
+        adj = defaultdict(list)
         inDegrees = [0 for i in range(numCourses)]
-        outGoing = defaultdict(list)
-        
-        # j-> i
-        for i, j in prerequisites:
-            outGoing[j].append(i)
-            inDegrees[i] += 1
-        
-        canTake = [i for i in range(numCourses) if inDegrees[i] == 0]
-        taken = []
-        
-        while len(canTake) > 0:
-            node = canTake.pop()
-            taken.append(node)
-            for nextCourse in outGoing[node]:
-                inDegrees[nextCourse] -= 1
-                if inDegrees[nextCourse] == 0:
-                    canTake.append(nextCourse)
-        return len(taken) == numCourses
 
+        for next, prev in prerequisites:
+            adj[prev].append(next)
+            inDegrees[next] += 1
 
-# Alternative soln
-from collections import defaultdict
-class Solution:
-    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        """
-        Taking set here as removing edge from set will be of constant time
-        """
-        inGoing = defaultdict(set)
-        outGoing = defaultdict(set)
-        for i,j  in prerequisites:
-            # j is pre req of i i.e j -> i
-            inGoing[i].add(j)
-            outGoing[j].add(i)
-        canTake = [i for i in range(numCourses) if len(inGoing[i]) == 0]
+        q = deque([])
         taken = []
-        while len(canTake) > 0:
-            take = canTake.pop()
-            taken.append(take)
-            for nextCourse in outGoing[take]:
-                inGoing[nextCourse].remove(take) # remove ingoing edge of nextcourse
-                if len(inGoing[nextCourse]) == 0: # add nextcourse if no edge
-                    canTake.append(nextCourse)
+        for c in range(numCourses):
+            if inDegrees[c] == 0:
+                q.append(c)
+
+        while q:
+            c = q.popleft()
+            # print(c)
+            taken.append(c)
+            # print(adj[c])
+            for nei in adj[c]:
+                inDegrees[nei] -= 1
+                if inDegrees[nei] == 0:
+                    q.append(nei)
         # print(taken)
         return len(taken) == numCourses
+
+# APPROACH 1 : USING DFS:
+
+# IDEA
+"""
+We make a opposit adj list from course -> list of preReq
+
+then we run dfs for all nodes such that we see if all the prereq are achievable
+then the current node is achivable.
+if we find a node double in current dfs path i.e. we have cycle.
+"""
+#code sample 1:
+# APPROACH-2 Using DFS:
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # opposite Adj list, crs => list(prereq)
+        adj = defaultdict(list)
+        for crs, prev in prerequisites:
+            adj[crs].append(prev)
+        
+        # maintain a current path visit set for checking cycle
+        visit = set()
+        # a set for taken nodes so that we can know if pre crs is taken before
+        takenSet = set()
+        takenOutput = []
+        def dfs(crs):
+            # cycle
+            if crs in visit:
+                return False
+            # already taken
+            if crs in takenSet:
+                return True
+
+            # put node in current path and explore prereq
+            visit.add(crs)
+            for prev in adj[crs]:
+                if not dfs(prev):
+                    return False
+            # remove node from current path and add in taken output and set
+            visit.remove(crs)
+            takenSet.add(crs)
+            takenOutput.append(crs)
+            return True
+        
+        for crs in range(numCourses):
+            if not dfs(crs):
+                return []
+        
+        return takenOutput
+
+
+
+# code sample 2:
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        # opposite Adj list, crs => list(prereq)
+        adj = defaultdict(list)
+        for crs, prev in prerequisites:
+            adj[crs].append(prev)
+        
+        # maintain a current path visit set for checking cycle
+        visit = set()
+        def dfs(crs):
+            # cycle
+            if crs in visit:
+                return False
+            # all prereq are achievable
+            if adj[crs] == []:
+                return True
+
+            visit.add(crs)
+            for prev in adj[crs]:
+                if not dfs(prev):
+                    return False
+            visit.remove(crs)
+            # to not traverse same achievable node again
+            adj[crs] = []
+            return True
+        
+        for crs in range(numCourses):
+            if not dfs(crs):
+                return False
+        
+        return True
+
 
 
 # -------------------------------------------------------
