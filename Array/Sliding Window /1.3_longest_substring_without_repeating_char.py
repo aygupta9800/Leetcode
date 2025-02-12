@@ -1,6 +1,20 @@
+
 # Given a string s, find the length of the longest 
 # substring without repeating characters.
 # sliding window technique
+#Approach 1 code:
+def lengthOfLongestSubstring(self, s: str) -> int:
+        res = 0
+        charIndexMap = {}
+        left = 0
+        for i in range(len(s)):
+            if s[i] in charIndexMap and charIndexMap[s[i]] >= left:
+                left = charIndexMap[s[i]] + 1
+            res = max(res, i-left+1)
+            charIndexMap[s[i]] = i
+        
+        return res
+
 #My soln
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
