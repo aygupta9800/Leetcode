@@ -19,6 +19,34 @@
 
 #Logic: At a given time, string can be replaced if total str len - max char length i.e replace lenght is <= k
 # if not we move window start with 1 position
+# Approach 4 fast sliding window (Time complexity O(n), space: O(26) i.e O(1)
+def characterReplacement(self, s: str, k: int) -> int:
+       # after reaching point where after adding end pointer, it become invalid
+       # we just move start by one and keep forwarding the window till, we can
+       # make a valid string and then try increase size of window by one
+       # we dont need to update maxfrequency every time we find invalid string
+       # we only need to update maxfrequency when we are increasing the window size
+       # we will be able to update the window only when new max freq is attained
+
+        freqMap = defaultdict(int)
+        start,end = 0, 0
+        res = 0
+        maxfreq = 0
+
+        while end < len(s):
+            freqMap[s[end]] += 1
+            maxfreq = max(freqMap[s[end]], maxfreq)
+
+            #check if current start to end string is valid
+            if start < end and end-start+1-maxfreq > k:
+                freqMap[s[start]] -= 1
+                start += 1
+            
+            res = max(res, end-start+1)
+            
+            end += 1
+        
+        return res
 
 # Approach 3
 #keep track of max_count so u dont have to loop in again
